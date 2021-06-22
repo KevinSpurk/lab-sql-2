@@ -52,3 +52,12 @@ limit 20;
 -- 11. What's the length of the longest film title?
 select max(length(title)) as title_length
 from film;
+-- alternative
+select title, length(title) as title_length
+from film
+order by length(title) desc
+limit 1;
+
+select title, max(length(title)) as title_length
+from film
+where length(title) = (select max(length(title)) from film);
