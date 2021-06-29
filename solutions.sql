@@ -12,10 +12,10 @@ where last_name = 'Johansson';
 
 -- 3. How many films (movies) are available for rent? (Total amount of movies)
 -- for individual movies
-select count(film_id)
+select count(*)
 from film;
 -- for all available physical copies 
-select count(inventory_id)
+select count(*)
 from inventory;
 
 -- 4. How many films have been rented?
@@ -26,6 +26,9 @@ from rental;
 select min(timediff(convert(return_date, datetime), convert(rental_date, datetime))) as shortest_rental, 
 	max(timediff(convert(return_date, datetime), convert(rental_date, datetime))) as longest_rental
 from rental;
+-- alternative
+SELECT MAX(rental_duration), MIN(rental_duration) 
+FROM film;
 
 -- 6. What are the shortest and longest movie duration? Name the values max_duration and min_duration.
 select min(length) as min_duration, max(length) as max_duration
@@ -42,7 +45,7 @@ from film;
 -- 9. How many movies longer than 3 hours?
 select count(film_id)
 from film
-where length >= 180;
+where length > 180;
 
 -- 10. Get the name and email formatted. Example: Mary SMITH - mary.smith@sakilacustomer.org.
 select concat(left(first_name, 1),lower(substr(first_name, 2))) as firstname_formated, last_name,  lower(email) as email_formated
